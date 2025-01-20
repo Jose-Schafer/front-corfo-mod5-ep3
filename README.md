@@ -13,38 +13,35 @@ npm run dev
 open `http://localhost:5173`
 
 # Preguntas
+## 1. Uso de useState para la Gestión de Estado (1.5 puntos)
+Ver `src/views/contact/form.tsx` donde se usa `useForm` para gestionar el formulario.
 
+## 2. Uso de useEffect para la Gestión de Efectos Secundarios (1.5
+Ver `src/views/medical-team/index.jsx` para ver como se usa useEffect para mostrar a los doctores y filtrar cada vez que cambia un valor en el input.
 
-## 1. Protección de Rutas con React Router Dom
-Ver implementación en `src/config/protected-route.tsx`, `src/config/routes.tsx`, `src/config/auth-validators.js`
+## 3. Construcción de un Hook Personalizado (1.5 puntos)
+Ver `src/providers/AuthContext.tsx` para el hook `useAuth`
 
-## 2. Implementación de Autenticación de Usuarios y Roles
-La ruta de `Contacto` solo puede ser acceder con rol de usuario. La ruta de `Backoffice` solo se puede acceder con role de admin
+## 4. Manejo de Errores en la Aplicación (1.5 puntos)
+Ver `src/views/contact/form.tsx` para el manejo de errores de formulario con el siguiente código:
 
-Credenciales:
+El siguiente código valida el formulario y también maneja un error para mostrarle al usuario un mensaje customizado más explicativo.
+```javascript
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "El nombre debe tener a lo menos dos caracteres.",
+  }),
+  email: z.string().email({
+    message: "Debe ingresar un correo valido.",
+  }),
+  doctorId: z.string().refine((value) => value !== "", {
+    message: "Debe seleccionar un doctor para continuar.",
+  }),
+  schedule: z.string().refine((value) => value !== "", {
+    message: "Debe seleccionar un horario.",
+  }),
+})
 ```
-# Admin
-user: admin
-password: admin
 
-# User
-user: user
-password: user
-```
-
-## 3. Consumo de APIs Protegido con API Key y JWT 
-Ver api protegida en `src/api/requests.js`:
-
-
-## 4. Prevención de vulnerabilidades comunes
-### Clickjacking
-Ver `vite.config.ts`
-
-### XSS
-
-### SQL Injection
-
-### Ataque DoS
-
-## 5. Encriptación de Datos en el Front End
-Ver datos encriptados en `src/api/request.js` y su uso en `src/providers/Context.jsx` al pasar un body. Se puede ver en el debugger el payload de la request.
+## 5. Aplicación Correcta de las Reglas de los Hooks (1 punto)
+Ver `src/views/medical-team/index.jsx` para ver como se usa el hook `useDoctors` dentro de useEffect y condicionales
